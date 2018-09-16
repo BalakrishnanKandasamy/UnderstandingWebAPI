@@ -8,15 +8,37 @@ using System.Web.Http;
 
 namespace UnderstandingWebAPI.Controllers
 {
+    [RoutePrefix("api")]
     public class PersonController : ApiController
     {
         static List<Person> persons = new List<Person> 
         {
-            new Person{Name="Williams",Location="Bangalore",Age=27},
-            new Person{Name="Roger",Location="Salem",Age=26}
+            new Person {
+                Name="Williams",
+                Location="Bangalore",
+                Age=27,
+                Children=new List<Person>{
+                    new Person{
+                    Name="Serena",
+                    Location="America",
+                    Age=10
+                    }
+                }
+            },
+            new Person {
+                Name="Roger",
+                Location="Swiss",
+                Age=26,
+                Children=new List<Person>{
+                    new Person{
+                        Name="Federer",
+                        Location="Swiss",
+                        Age=5
+                    }
+                }
+            }
         };
         // GET api/values
-        [Route]
         public List<Person> GetPersons()
         {
             return persons;
@@ -27,6 +49,12 @@ namespace UnderstandingWebAPI.Controllers
         public Person FindPersonsByName(string name)
         {
             return persons.First(person => person.Name == name);
+        }
+
+        [Route("{controller}/{name:alpha}/Children")]
+        public List<Person> GetChildrenByPerson(string name)
+        {
+            return persons.First(person => person.Name == name).Children;
         }
 
         // POST api/values
@@ -47,11 +75,11 @@ namespace UnderstandingWebAPI.Controllers
             persons.Remove(persons.First(person => person.Name == name));
         }
     }
-    [TypeConverter]
     public class Person
     {
         public string Name { get; set; }
         public string Location { get; set; }
         public int Age { get; set; }
+        public List<Person> Children { get; set; }
     }
 }
