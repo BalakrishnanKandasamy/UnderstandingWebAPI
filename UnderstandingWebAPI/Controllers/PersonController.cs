@@ -12,8 +12,8 @@ namespace UnderstandingWebAPI.Controllers
     {
         static List<Person> persons = new List<Person> 
         {
-            new Person{Name="Balakrishnan",Location="Bangalore",Age=27},
-            new Person{Name="Sridevi",Location="Salem",Age=26}
+            new Person{Name="Williams",Location="Bangalore",Age=27},
+            new Person{Name="Roger",Location="Salem",Age=26}
         };
         // GET api/values
         [Route]
